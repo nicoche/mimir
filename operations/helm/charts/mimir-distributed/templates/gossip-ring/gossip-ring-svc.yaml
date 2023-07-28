@@ -13,6 +13,9 @@ spec:
       port: {{ include "mimir.memberlistBindPort" . }}
       protocol: TCP
       targetPort: {{ include "mimir.memberlistBindPort" . }}
+      {{- if .Values.mimir.memberlistAppProtocol }}
+      appProtocol: {{ .Values.mimir.memberlistAppProtocol }}
+      {{- end }}
   publishNotReadyAddresses: true
   selector:
     {{- include "mimir.gossipRingSelectorLabels" (dict "ctx" .) | nindent 4 }}
